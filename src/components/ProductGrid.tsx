@@ -15,7 +15,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80",
       description: "Classic diamond solitaire ring in 18k white gold",
       isNew: true,
-      isBestSeller: false
+      isBestSeller: false,
+      stock: 5,
+      material: "gold"
     },
     {
       id: 2,
@@ -25,7 +27,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
       description: "Elegant freshwater pearl drop earrings",
       isNew: false,
-      isBestSeller: true
+      isBestSeller: true,
+      stock: 12,
+      material: "silver"
     },
     {
       id: 3,
@@ -35,7 +39,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
       description: "Delicate 14k gold chain necklace",
       isNew: true,
-      isBestSeller: false
+      isBestSeller: false,
+      stock: 8,
+      material: "gold"
     },
     {
       id: 4,
@@ -45,7 +51,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80",
       description: "Classic diamond tennis bracelet",
       isNew: false,
-      isBestSeller: true
+      isBestSeller: true,
+      stock: 3,
+      material: "gold"
     },
     {
       id: 5,
@@ -55,7 +63,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
       description: "Stunning emerald pendant with gold chain",
       isNew: true,
-      isBestSeller: false
+      isBestSeller: false,
+      stock: 6,
+      material: "gold"
     },
     {
       id: 6,
@@ -65,7 +75,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=800&q=80",
       description: "Modern rose gold hoop earrings",
       isNew: false,
-      isBestSeller: true
+      isBestSeller: true,
+      stock: 15,
+      material: "gold"
     }
   ];
 
@@ -98,14 +110,26 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
         filtered.sort((a, b) => b.price - a.price);
         break;
       case "bestsellers":
-        filtered.sort((a, b) => b.isBestSeller - a.isBestSeller);
+        filtered.sort((a, b) => Number(b.isBestSeller) - Number(a.isBestSeller));
         break;
       default: // newest
-        filtered.sort((a, b) => b.isNew - a.isNew);
+        filtered.sort((a, b) => Number(b.isNew) - Number(a.isNew));
     }
 
     return filtered;
   }, [searchQuery, selectedCategory, sortBy]);
+
+  const getStockStatus = (stock) => {
+    if (stock <= 3) return "Low Stock";
+    if (stock === 0) return "Out of Stock";
+    return "In Stock";
+  };
+
+  const getStockColor = (stock) => {
+    if (stock <= 3) return "text-orange-600";
+    if (stock === 0) return "text-red-600";
+    return "text-green-600";
+  };
 
   return (
     <section className="py-16 lg:py-24 bg-gray-50">
@@ -179,11 +203,19 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
                 <h3 className="text-xl font-light tracking-wide text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors duration-200">
                   {product.name}
                 </h3>
-                <p className="text-gray-600 font-light mb-4 line-clamp-2">
+                <p className="text-gray-600 font-light mb-2 line-clamp-2">
                   {product.description}
                 </p>
-                <p className="text-2xl font-light text-gray-900">
-                  ${product.price.toLocaleString()}
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-2xl font-light text-gray-900">
+                    ${product.price.toLocaleString()}
+                  </p>
+                  <span className={`text-sm font-light ${getStockColor(product.stock)}`}>
+                    {getStockStatus(product.stock)}
+                  </span>
+                </div>
+                <p className="text-gray-500 text-sm font-light capitalize">
+                  Material: {product.material}
                 </p>
               </div>
             </div>

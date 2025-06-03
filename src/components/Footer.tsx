@@ -2,6 +2,18 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
+  const handleLinkClick = (path) => {
+    window.location.href = path;
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = "mailto:hello@luxe-jewelry.com";
+  };
+
+  const handlePhoneClick = () => {
+    window.location.href = "tel:+15551234567";
+  };
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -12,8 +24,8 @@ const Footer = () => {
               LUX<span className="text-yellow-600">E</span>
             </h3>
             <p className="text-gray-300 font-light leading-relaxed">
-              Crafting timeless elegance since 1985. Each piece in our collection 
-              represents the perfect harmony of traditional craftsmanship and modern design.
+              A modern test platform for jewelry enthusiasts – crafting quality since 2024. 
+              Each piece represents the perfect harmony of traditional craftsmanship and modern design.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-300 hover:text-yellow-600 transition-colors duration-200">
@@ -32,20 +44,54 @@ const Footer = () => {
           <div className="space-y-6">
             <h4 className="text-lg font-light tracking-wide">Quick Links</h4>
             <ul className="space-y-3">
-              {[
-                "New Arrivals",
-                "Best Sellers",
-                "Collections",
-                "Size Guide",
-                "Care Instructions",
-                "About Us"
-              ].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light">
-                    {link}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  New Arrivals
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Best Sellers
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Collections
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/size-guide")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Size Guide
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/care-instructions")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Care Instructions
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/about-us")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  About Us
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -53,20 +99,34 @@ const Footer = () => {
           <div className="space-y-6">
             <h4 className="text-lg font-light tracking-wide">Customer Service</h4>
             <ul className="space-y-3">
-              {[
-                "Contact Us",
-                "Shipping Info",
-                "Returns & Exchanges",
-                "Size Guide",
-                "FAQ",
-                "Track Your Order"
-              ].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light">
-                    {link}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <button 
+                  onClick={handleEmailClick}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Contact Us
+                </button>
+              </li>
+              <li>
+                <span className="text-gray-300 font-light cursor-default">Shipping Info</span>
+              </li>
+              <li>
+                <span className="text-gray-300 font-light cursor-default">Returns & Exchanges</span>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleLinkClick("/size-guide")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Size Guide
+                </button>
+              </li>
+              <li>
+                <span className="text-gray-300 font-light cursor-default">FAQ</span>
+              </li>
+              <li>
+                <span className="text-gray-300 font-light cursor-default">Track Your Order</span>
+              </li>
             </ul>
           </div>
 
@@ -83,11 +143,21 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-yellow-600 flex-shrink-0" />
-                <p className="text-gray-300 font-light">+1 (555) 123-4567</p>
+                <button 
+                  onClick={handlePhoneClick}
+                  className="text-gray-300 font-light hover:text-yellow-600 transition-colors duration-200"
+                >
+                  +1 (555) 123-4567
+                </button>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-yellow-600 flex-shrink-0" />
-                <p className="text-gray-300 font-light">hello@luxe-jewelry.com</p>
+                <button 
+                  onClick={handleEmailClick}
+                  className="text-gray-300 font-light hover:text-yellow-600 transition-colors duration-200"
+                >
+                  hello@luxe-jewelry.com
+                </button>
               </div>
             </div>
           </div>
@@ -119,15 +189,15 @@ const Footer = () => {
             © 2024 LUXE Jewelry. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-yellow-600 transition-colors duration-200 text-sm font-light">
+            <span className="text-gray-400 text-sm font-light cursor-default">
               Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-yellow-600 transition-colors duration-200 text-sm font-light">
+            </span>
+            <span className="text-gray-400 text-sm font-light cursor-default">
               Terms of Service
-            </a>
-            <a href="#" className="text-gray-400 hover:text-yellow-600 transition-colors duration-200 text-sm font-light">
+            </span>
+            <span className="text-gray-400 text-sm font-light cursor-default">
               Cookie Policy
-            </a>
+            </span>
           </div>
         </div>
       </div>
