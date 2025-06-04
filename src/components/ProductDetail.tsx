@@ -1,23 +1,59 @@
 
 import { useState } from "react";
-import { ArrowLeft, ShoppingCart, Star } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Star, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const ProductDetail = ({ product, onBack, onAddToCart }) => {
+const ProductDetail = ({ product, onBack, onAddToCart, onAddToWishlist }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // Mock additional images - in a real app, this would come from the product data
-  const images = [
-    product.image,
-    "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"
-  ];
+  // Real jewelry images for different angles of the same product
+  const getProductImages = (product) => {
+    const imageMap = {
+      1: [ // Diamond Solitaire Ring
+        "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1549388604-817d15aa0968?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1543294001-f7cd5d7fb95d?auto=format&fit=crop&w=800&q=80"
+      ],
+      2: [ // Pearl Drop Earrings
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1588444837495-c6c080964dd8?auto=format&fit=crop&w=800&q=80"
+      ],
+      3: [ // Gold Chain Necklace
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=800&q=80"
+      ],
+      4: [ // Tennis Bracelet
+        "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80"
+      ],
+      5: [ // Emerald Pendant
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=800&q=80"
+      ],
+      6: [ // Rose Gold Hoops
+        "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1588444837495-c6c080964dd8?auto=format&fit=crop&w=800&q=80"
+      ]
+    };
+    return imageMap[product.id] || [product.image, product.image, product.image];
+  };
+
+  const images = getProductImages(product);
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       onAddToCart(product);
     }
+  };
+
+  const handleAddToWishlist = () => {
+    onAddToWishlist(product);
   };
 
   return (
@@ -143,9 +179,11 @@ const ProductDetail = ({ product, onBack, onAddToCart }) => {
                 </Button>
                 
                 <Button
+                  onClick={handleAddToWishlist}
                   variant="outline"
                   className="w-full border-gray-300 text-gray-700 hover:border-yellow-600 hover:text-yellow-600 py-4 text-lg font-light tracking-wide transition-colors duration-200"
                 >
+                  <Heart className="h-5 w-5 mr-2" />
                   Add to Wishlist
                 </Button>
               </div>

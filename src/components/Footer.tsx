@@ -122,10 +122,20 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <span className="text-gray-300 font-light cursor-default">FAQ</span>
+                <button 
+                  onClick={() => handleLinkClick("/faq")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  FAQ
+                </button>
               </li>
               <li>
-                <span className="text-gray-300 font-light cursor-default">Track Your Order</span>
+                <button 
+                  onClick={() => handleLinkClick("/track-order")}
+                  className="text-gray-300 hover:text-yellow-600 transition-colors duration-200 font-light"
+                >
+                  Track Your Order
+                </button>
               </li>
             </ul>
           </div>
@@ -189,15 +199,24 @@ const Footer = () => {
             © 2024 LUXE Jewelry. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <span className="text-gray-400 text-sm font-light cursor-default">
+            <button 
+              onClick={() => handleLinkClick("/privacy-policy")}
+              className="text-gray-400 text-sm font-light hover:text-yellow-600 transition-colors duration-200"
+            >
               Privacy Policy
-            </span>
-            <span className="text-gray-400 text-sm font-light cursor-default">
+            </button>
+            <button 
+              onClick={() => handleLinkClick("/terms-of-service")}
+              className="text-gray-400 text-sm font-light hover:text-yellow-600 transition-colors duration-200"
+            >
               Terms of Service
-            </span>
-            <span className="text-gray-400 text-sm font-light cursor-default">
+            </button>
+            <button 
+              onClick={() => handleLinkClick("/cookie-policy")}
+              className="text-gray-400 text-sm font-light hover:text-yellow-600 transition-colors duration-200"
+            >
               Cookie Policy
-            </span>
+            </button>
           </div>
         </div>
       </div>

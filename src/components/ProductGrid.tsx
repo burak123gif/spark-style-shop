@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onProductClick }) => {
   const [showFilters, setShowFilters] = useState(false);
 
-  // Mock product data - in a real app, this would come from an API
+  // Updated product data with real jewelry images
   const products = [
     {
       id: 1,
@@ -78,6 +78,42 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
       isBestSeller: true,
       stock: 15,
       material: "gold"
+    },
+    {
+      id: 7,
+      name: "Sapphire Eternity Ring",
+      price: 2899,
+      category: "rings",
+      image: "https://images.unsplash.com/photo-1549388604-817d15aa0968?auto=format&fit=crop&w=800&q=80",
+      description: "Blue sapphire eternity ring in platinum",
+      isNew: true,
+      isBestSeller: false,
+      stock: 4,
+      material: "platinum"
+    },
+    {
+      id: 8,
+      name: "Diamond Stud Earrings",
+      price: 1599,
+      category: "earrings",
+      image: "https://images.unsplash.com/photo-1588444837495-c6c080964dd8?auto=format&fit=crop&w=800&q=80",
+      description: "Classic diamond stud earrings",
+      isNew: false,
+      isBestSeller: true,
+      stock: 10,
+      material: "gold"
+    },
+    {
+      id: 9,
+      name: "Charm Bracelet",
+      price: 899,
+      category: "bracelets",
+      image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=800&q=80",
+      description: "Sterling silver charm bracelet",
+      isNew: false,
+      isBestSeller: false,
+      stock: 7,
+      material: "silver"
     }
   ];
 

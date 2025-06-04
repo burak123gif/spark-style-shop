@@ -1,10 +1,10 @@
 
 import { useState } from "react";
-import { Search, ShoppingCart, Menu, X, LogIn } from "lucide-react";
+import { Search, ShoppingCart, Menu, X, LogIn, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const Header = ({ cartItemsCount, onCartClick, onSearchChange, onCategoryChange }) => {
+const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlistClick, onSearchChange, onCategoryChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -80,7 +80,7 @@ const Header = ({ cartItemsCount, onCartClick, onSearchChange, onCategoryChange 
             ))}
           </nav>
 
-          {/* Search, Cart, and Login */}
+          {/* Search, Wishlist, Cart, and Login */}
           <div className="flex items-center space-x-4">
             {/* Desktop Search */}
             <div className="hidden lg:flex relative">
@@ -115,6 +115,21 @@ const Header = ({ cartItemsCount, onCartClick, onSearchChange, onCategoryChange 
                 </div>
               )}
             </div>
+
+            {/* Wishlist */}
+            {onWishlistClick && (
+              <button
+                onClick={onWishlistClick}
+                className="relative p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
+              >
+                <Heart className="h-6 w-6" />
+                {wishlistItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                    {wishlistItemsCount}
+                  </span>
+                )}
+              </button>
+            )}
 
             {/* Cart */}
             <button
