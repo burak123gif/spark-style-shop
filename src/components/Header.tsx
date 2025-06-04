@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, ShoppingCart, Menu, X, LogIn, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,6 +50,12 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
         window.location.href = "/";
       }
     }
+  };
+
+  const handleLoginClick = () => {
+    // For now, redirect to a login page (placeholder)
+    // In a real app, this would open a login modal or redirect to auth
+    window.location.href = '/login';
   };
 
   return (
@@ -121,6 +126,7 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
               <button
                 onClick={onWishlistClick}
                 className="relative p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
+                aria-label="Open wishlist"
               >
                 <Heart className="h-6 w-6" />
                 {wishlistItemsCount > 0 && (
@@ -135,6 +141,7 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
             <button
               onClick={onCartClick}
               className="relative p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
+              aria-label="Open shopping cart"
             >
               <ShoppingCart className="h-6 w-6" />
               {cartItemsCount > 0 && (
@@ -145,7 +152,11 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
             </button>
 
             {/* Login */}
-            <Button variant="outline" className="hidden lg:flex items-center space-x-2 border-gray-200 hover:border-yellow-600 hover:text-yellow-600">
+            <Button 
+              variant="outline" 
+              onClick={handleLoginClick}
+              className="hidden lg:flex items-center space-x-2 border-gray-200 hover:border-yellow-600 hover:text-yellow-600"
+            >
               <LogIn className="h-4 w-4" />
               <span>Log In</span>
             </Button>
@@ -154,6 +165,7 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 text-gray-700"
+              aria-label="Toggle mobile menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -193,7 +205,14 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
               </nav>
 
               {/* Mobile Login */}
-              <Button variant="outline" className="w-full border-gray-200 hover:border-yellow-600 hover:text-yellow-600">
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  handleLoginClick();
+                  setIsMenuOpen(false);
+                }}
+                className="w-full border-gray-200 hover:border-yellow-600 hover:text-yellow-600"
+              >
                 <LogIn className="h-4 w-4 mr-2" />
                 Log In
               </Button>

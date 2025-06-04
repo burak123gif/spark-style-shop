@@ -65,6 +65,7 @@ const Checkout = () => {
         <button
           onClick={() => window.history.back()}
           className="flex items-center space-x-2 text-gray-600 hover:text-yellow-600 transition-colors duration-200 mb-8"
+          aria-label="Go back to previous page"
         >
           <ArrowLeft className="h-5 w-5" />
           <span>Back to Cart</span>
@@ -89,6 +90,7 @@ const Checkout = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="you@example.com"
+                    disabled={isProcessing}
                   />
                 </div>
               </div>
@@ -105,6 +107,7 @@ const Checkout = () => {
                       required
                       value={formData.firstName}
                       onChange={handleInputChange}
+                      disabled={isProcessing}
                     />
                   </div>
                   <div>
@@ -115,6 +118,7 @@ const Checkout = () => {
                       required
                       value={formData.lastName}
                       onChange={handleInputChange}
+                      disabled={isProcessing}
                     />
                   </div>
                 </div>
@@ -127,6 +131,7 @@ const Checkout = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="123 Main Street"
+                    disabled={isProcessing}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4 mt-4">
@@ -138,6 +143,7 @@ const Checkout = () => {
                       required
                       value={formData.city}
                       onChange={handleInputChange}
+                      disabled={isProcessing}
                     />
                   </div>
                   <div>
@@ -148,6 +154,7 @@ const Checkout = () => {
                       required
                       value={formData.state}
                       onChange={handleInputChange}
+                      disabled={isProcessing}
                     />
                   </div>
                 </div>
@@ -159,6 +166,7 @@ const Checkout = () => {
                     required
                     value={formData.zipCode}
                     onChange={handleInputChange}
+                    disabled={isProcessing}
                   />
                 </div>
               </div>
@@ -177,6 +185,7 @@ const Checkout = () => {
                     required
                     value={formData.nameOnCard}
                     onChange={handleInputChange}
+                    disabled={isProcessing}
                   />
                 </div>
                 <div className="mt-4">
@@ -189,6 +198,7 @@ const Checkout = () => {
                     onChange={handleInputChange}
                     placeholder="1234 5678 9012 3456"
                     maxLength={19}
+                    disabled={isProcessing}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4 mt-4">
@@ -202,6 +212,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       placeholder="MM/YY"
                       maxLength={5}
+                      disabled={isProcessing}
                     />
                   </div>
                   <div>
@@ -214,6 +225,7 @@ const Checkout = () => {
                       onChange={handleInputChange}
                       placeholder="123"
                       maxLength={4}
+                      disabled={isProcessing}
                     />
                   </div>
                 </div>
@@ -222,10 +234,14 @@ const Checkout = () => {
               <Button
                 type="submit"
                 disabled={isProcessing}
-                className="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-4 text-lg font-light tracking-wide"
+                className="w-full bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-4 text-lg font-light tracking-wide transition-colors duration-200"
+                aria-label={isProcessing ? "Processing payment" : "Complete purchase"}
               >
                 {isProcessing ? (
-                  "Processing Payment..."
+                  <span className="flex items-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Processing Payment...
+                  </span>
                 ) : (
                   <>
                     <CreditCard className="h-5 w-5 mr-2" />

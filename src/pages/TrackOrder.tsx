@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Package, Truck, CheckCircle } from "lucide-react";
 import Header from "../components/Header";
@@ -80,6 +79,7 @@ const TrackOrder = () => {
       <Header 
         cartItemsCount={0}
         onCartClick={() => {}}
+        onWishlistClick={() => {}}
         onSearchChange={() => {}}
         onCategoryChange={() => {}}
       />

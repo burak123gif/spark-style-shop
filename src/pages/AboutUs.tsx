@@ -8,6 +8,7 @@ const AboutUs = () => {
       <Header 
         cartItemsCount={0}
         onCartClick={() => {}}
+        onWishlistClick={() => {}}
         onSearchChange={() => {}}
         onCategoryChange={() => {}}
       />
