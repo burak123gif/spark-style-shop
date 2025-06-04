@@ -1,12 +1,15 @@
+
 import { useState } from "react";
 import { Search, ShoppingCart, Menu, X, LogIn, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlistClick, onSearchChange, onCategoryChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const navigate = useNavigate();
 
   // Mock search suggestions
   const searchSuggestions = [
@@ -19,7 +22,9 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
 
   const categories = [
     { id: "all", name: "All", path: "/" },
-    { id: "new", name: "New Arrivals", path: "/" },
+    { id: "new", name: "New Arrivals", path: "/new-arrivals" },
+    { id: "bestsellers", name: "Best Sellers", path: "/best-sellers" },
+    { id: "collections", name: "Collections", path: "/collections" },
     { id: "necklaces", name: "Necklaces", path: "/" },
     { id: "bracelets", name: "Bracelets", path: "/" },
     { id: "earrings", name: "Earrings", path: "/" },
@@ -43,19 +48,25 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
 
   const handleNavClick = (category) => {
     if (category.path && category.path !== "/") {
-      window.location.href = category.path;
+      navigate(category.path);
     } else {
       onCategoryChange(category.id);
       if (window.location.pathname !== "/") {
-        window.location.href = "/";
+        navigate("/");
       }
     }
+    setIsMenuOpen(false);
   };
 
   const handleLoginClick = () => {
     // For now, redirect to a login page (placeholder)
     // In a real app, this would open a login modal or redirect to auth
     window.location.href = '/login';
+  };
+
+  const handleLogoClick = () => {
+    navigate("/");
+    onCategoryChange("all");
   };
 
   return (
@@ -65,7 +76,7 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
-              onClick={() => window.location.href = "/"}
+              onClick={handleLogoClick}
               className="text-2xl lg:text-3xl font-light tracking-wide text-gray-900 hover:text-yellow-600 transition-colors duration-200"
             >
               LUX<span className="text-yellow-600">E</span>
@@ -193,10 +204,7 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
                 {categories.map((category) => (
                   <button
                     key={category.id}
-                    onClick={() => {
-                      handleNavClick(category);
-                      setIsMenuOpen(false);
-                    }}
+                    onClick={() => handleNavClick(category)}
                     className="block w-full text-left py-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
                   >
                     {category.name}

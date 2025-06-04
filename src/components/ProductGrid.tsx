@@ -1,6 +1,7 @@
 
 import { useState, useMemo } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onProductClick }) => {
   const [showFilters, setShowFilters] = useState(false);
@@ -124,7 +125,9 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
     if (searchQuery) {
       filtered = filtered.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.material.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -132,6 +135,8 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
     if (selectedCategory && selectedCategory !== "all") {
       if (selectedCategory === "new") {
         filtered = filtered.filter(product => product.isNew);
+      } else if (selectedCategory === "bestsellers") {
+        filtered = filtered.filter(product => product.isBestSeller);
       } else {
         filtered = filtered.filter(product => product.category === selectedCategory);
       }
@@ -165,6 +170,13 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
     if (stock <= 3) return "text-orange-600";
     if (stock === 0) return "text-red-600";
     return "text-green-600";
+  };
+
+  const handleExploreClick = (product, e) => {
+    e.stopPropagation();
+    // Scroll to top when viewing product details
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    onProductClick(product);
   };
 
   return (
@@ -209,13 +221,24 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
           </div>
         </div>
 
+        {/* Search Results Feedback */}
+        {searchQuery && (
+          <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-yellow-800">
+              {filteredProducts.length > 0 
+                ? `Found ${filteredProducts.length} result${filteredProducts.length !== 1 ? 's' : ''} for "${searchQuery}"`
+                : `No results found for "${searchQuery}". Try a different search term.`
+              }
+            </p>
+          </div>
+        )}
+
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              onClick={() => onProductClick(product)}
-              className="group cursor-pointer bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+              className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="relative overflow-hidden">
                 <img
@@ -233,9 +256,23 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
                     BESTSELLER
                   </span>
                 )}
+                
+                {/* Explore Button - appears on hover */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                  <Button
+                    onClick={(e) => handleExploreClick(product, e)}
+                    className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-white text-gray-900 hover:bg-yellow-600 hover:text-white"
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    Explore
+                  </Button>
+                </div>
               </div>
               
-              <div className="p-6">
+              <div 
+                className="p-6 cursor-pointer"
+                onClick={() => handleExploreClick(product, { stopPropagation: () => {} })}
+              >
                 <h3 className="text-xl font-light tracking-wide text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors duration-200">
                   {product.name}
                 </h3>

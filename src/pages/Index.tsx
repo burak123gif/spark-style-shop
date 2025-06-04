@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import ProductGrid from "../components/ProductGrid";
@@ -19,6 +19,13 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [showWishlistPopup, setShowWishlistPopup] = useState(false);
+
+  // Scroll to top when selectedProduct changes
+  useEffect(() => {
+    if (selectedProduct) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [selectedProduct]);
 
   const addToCart = (product) => {
     setCartItems(prev => {

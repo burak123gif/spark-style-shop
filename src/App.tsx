@@ -16,6 +16,10 @@ import FAQ from "./pages/FAQ";
 import TrackOrder from "./pages/TrackOrder";
 import Checkout from "./pages/Checkout";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import ReturnsExchanges from "./pages/ReturnsExchanges";
+import BestSellers from "./pages/BestSellers";
+import NewArrivals from "./pages/NewArrivals";
+import Collections from "./pages/Collections";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +41,10 @@ const App = () => (
           <Route path="/track-order" element={<TrackOrder />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/returns-exchanges" element={<ReturnsExchanges />} />
+          <Route path="/best-sellers" element={<BestSellers />} />
+          <Route path="/new-arrivals" element={<NewArrivals />} />
+          <Route path="/collections" element={<Collections />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
