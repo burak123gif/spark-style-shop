@@ -68,14 +68,20 @@ const Index = () => {
     );
   };
 
+  const handleCheckout = () => {
+    window.location.href = '/checkout';
+  };
+
   if (selectedProduct) {
     return (
       <div className="min-h-screen bg-white">
         <Header 
           cartItemsCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
           onCartClick={() => setIsCartOpen(true)}
+          onWishlistClick={() => setIsWishlistOpen(true)}
           onSearchChange={setSearchQuery}
           onCategoryChange={setSelectedCategory}
+          wishlistItemsCount={wishlistItems.length}
         />
         <ProductDetail 
           product={selectedProduct}
@@ -90,7 +96,7 @@ const Index = () => {
             onClose={() => setIsCartOpen(false)}
             onRemoveItem={removeFromCart}
             onUpdateQuantity={updateQuantity}
-            onCheckout={() => window.location.href = '/checkout'}
+            onCheckout={handleCheckout}
           />
         )}
         {isWishlistOpen && (
@@ -141,7 +147,7 @@ const Index = () => {
           onClose={() => setIsCartOpen(false)}
           onRemoveItem={removeFromCart}
           onUpdateQuantity={updateQuantity}
-          onCheckout={() => window.location.href = '/checkout'}
+          onCheckout={handleCheckout}
         />
       )}
 

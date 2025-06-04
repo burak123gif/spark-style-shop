@@ -8,6 +8,7 @@ const PrivacyPolicy = () => {
       <Header 
         cartItemsCount={0}
         onCartClick={() => {}}
+        onWishlistClick={() => {}}
         onSearchChange={() => {}}
         onCategoryChange={() => {}}
       />

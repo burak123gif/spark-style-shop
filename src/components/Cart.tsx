@@ -2,8 +2,14 @@
 import { X, Plus, Minus, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Cart = ({ items, onClose, onRemoveItem, onUpdateQuantity }) => {
+const Cart = ({ items, onClose, onRemoveItem, onUpdateQuantity, onCheckout }) => {
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  const handleCheckout = () => {
+    if (onCheckout) {
+      onCheckout();
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
@@ -86,7 +92,10 @@ const Cart = ({ items, onClose, onRemoveItem, onUpdateQuantity }) => {
                 </span>
               </div>
               
-              <Button className="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-3 font-light tracking-wide transition-colors duration-200">
+              <Button 
+                onClick={handleCheckout}
+                className="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-3 font-light tracking-wide transition-colors duration-200"
+              >
                 Proceed to Checkout
               </Button>
               

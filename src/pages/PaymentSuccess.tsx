@@ -12,6 +12,7 @@ const PaymentSuccess = () => {
       <Header 
         cartItemsCount={0}
         onCartClick={() => {}}
+        onWishlistClick={() => {}}
         onSearchChange={() => {}}
         onCategoryChange={() => {}}
       />

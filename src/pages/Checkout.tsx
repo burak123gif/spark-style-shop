@@ -56,6 +56,7 @@ const Checkout = () => {
       <Header 
         cartItemsCount={cartItems.length}
         onCartClick={() => {}}
+        onWishlistClick={() => {}}
         onSearchChange={() => {}}
         onCategoryChange={() => {}}
       />

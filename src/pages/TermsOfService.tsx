@@ -1,4 +1,3 @@
-
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -8,6 +7,7 @@ const TermsOfService = () => {
       <Header 
         cartItemsCount={0}
         onCartClick={() => {}}
+        onWishlistClick={() => {}}
         onSearchChange={() => {}}
         onCategoryChange={() => {}}
       />
