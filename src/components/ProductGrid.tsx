@@ -95,12 +95,13 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
     e.stopPropagation();
     console.log('Explore button clicked for product:', product.name);
     
-    // Smooth scroll to top when viewing product details
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Navigate to product detail view
+    // Navigate to product detail view first
     if (onProductClick) {
       onProductClick(product);
+      // FIXED: Scroll to top AFTER navigation with a small delay to ensure the page has changed
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     } else {
       // Fallback: redirect to jewelry page if no handler
       console.warn('No product click handler provided, redirecting to jewelry page');
@@ -122,7 +123,7 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-gray-50">
+    <section className="py-12 sm:py-16 lg:py-24 bg-gray-50" data-section="products">
       <div className="container-responsive">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">

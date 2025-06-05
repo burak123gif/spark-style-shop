@@ -24,6 +24,22 @@ const FeaturedCollections = () => {
     }
   ];
 
+  const handleExploreClick = () => {
+    // Scroll to the products section smoothly
+    const productsSection = document.querySelector('[data-section="products"]');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleClaimOfferClick = () => {
+    // For now, just scroll to products. Later this could open a newsletter signup modal
+    const productsSection = document.querySelector('[data-section="products"]');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,7 +68,10 @@ const FeaturedCollections = () => {
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="bg-white text-gray-900 px-6 py-3 font-light tracking-wide hover:bg-gray-100 transition-colors duration-200">
+                  <button 
+                    onClick={handleExploreClick}
+                    className="bg-white text-gray-900 px-6 py-3 font-light tracking-wide hover:bg-gray-100 transition-colors duration-200"
+                  >
                     EXPLORE
                   </button>
                 </div>
@@ -82,7 +101,10 @@ const FeaturedCollections = () => {
             Get 10% off your first purchase when you sign up for our newsletter. 
             Plus, be the first to know about new arrivals and exclusive events.
           </p>
-          <button className="bg-yellow-600 text-white px-8 py-3 font-light tracking-wide hover:bg-yellow-700 transition-colors duration-200">
+          <button 
+            onClick={handleClaimOfferClick}
+            className="bg-yellow-600 text-white px-8 py-3 font-light tracking-wide hover:bg-yellow-700 transition-colors duration-200"
+          >
             CLAIM OFFER
           </button>
         </div>

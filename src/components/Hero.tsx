@@ -1,5 +1,13 @@
 
 const Hero = () => {
+  const handleExploreClick = () => {
+    // Scroll to the products section smoothly
+    const productsSection = document.querySelector('[data-section="products"]');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative h-[70vh] lg:h-[80vh] overflow-hidden">
       <div className="absolute inset-0">
@@ -20,7 +28,10 @@ const Hero = () => {
             Discover our exquisite collection of handcrafted jewelry, 
             where each piece tells a story of sophistication and grace.
           </p>
-          <button className="bg-white text-gray-900 px-8 py-3 lg:px-12 lg:py-4 font-light tracking-wide hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 animate-fade-in">
+          <button 
+            onClick={handleExploreClick}
+            className="bg-white text-gray-900 px-8 py-3 lg:px-12 lg:py-4 font-light tracking-wide hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 animate-fade-in"
+          >
             EXPLORE COLLECTION
           </button>
         </div>
