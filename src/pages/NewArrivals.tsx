@@ -4,10 +4,11 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
 import { usePersistentState } from "../hooks/usePersistentState";
+import { usePersistentWishlist } from "../hooks/usePersistentWishlist";
 
 const NewArrivals = () => {
   const [cartItems, setCartItems] = usePersistentState("luxe-cart", []);
-  const [wishlistItems, setWishlistItems] = usePersistentState("luxe-wishlist", []);
+  const { wishlistItems } = usePersistentWishlist();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [selectedProduct, setSelectedProduct] = useState(null);

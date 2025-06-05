@@ -9,17 +9,24 @@ import ProductDetail from "../components/ProductDetail";
 import Cart from "../components/Cart";
 import Wishlist from "../components/Wishlist";
 import { usePersistentState } from "../hooks/usePersistentState";
+import { usePersistentWishlist } from "../hooks/usePersistentWishlist";
 
 const Index = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [cartItems, setCartItems] = usePersistentState("luxe-cart", []);
-  const [wishlistItems, setWishlistItems] = usePersistentState("luxe-wishlist", []);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
-  const [showWishlistPopup, setShowWishlistPopup] = useState(false);
+
+  // Use the new persistent wishlist hook
+  const { 
+    wishlistItems, 
+    addToWishlist, 
+    removeFromWishlist, 
+    showWishlistPopup 
+  } = usePersistentWishlist();
 
   // Scroll to top when selectedProduct changes
   useEffect(() => {
@@ -42,24 +49,8 @@ const Index = () => {
     });
   };
 
-  const addToWishlist = (product) => {
-    setWishlistItems(prev => {
-      const existing = prev.find(item => item.id === product.id);
-      if (!existing) {
-        setShowWishlistPopup(true);
-        setTimeout(() => setShowWishlistPopup(false), 2000);
-        return [...prev, product];
-      }
-      return prev;
-    });
-  };
-
   const removeFromCart = (productId) => {
     setCartItems(prev => prev.filter(item => item.id !== productId));
-  };
-
-  const removeFromWishlist = (productId) => {
-    setWishlistItems(prev => prev.filter(item => item.id !== productId));
   };
 
   const updateQuantity = (productId, quantity) => {
@@ -117,7 +108,7 @@ const Index = () => {
         )}
         {showWishlistPopup && (
           <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-            Added to wishlist!
+            Added to wishlist! ❤️
           </div>
         )}
       </div>
@@ -172,7 +163,7 @@ const Index = () => {
 
       {showWishlistPopup && (
         <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-          Added to wishlist!
+          Added to wishlist! ❤️
         </div>
       )}
     </div>
