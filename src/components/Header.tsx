@@ -20,15 +20,21 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
     "Rose Gold Hoops"
   ];
 
-  const categories = [
-    { id: "all", name: "All", path: "/" },
+  // Simplified categories for better UX
+  const mainCategories = [
     { id: "new", name: "New Arrivals", path: "/new-arrivals" },
     { id: "bestsellers", name: "Best Sellers", path: "/best-sellers" },
-    { id: "collections", name: "Collections", path: "/collections" },
+    { id: "collections", name: "Collections", path: "/collections" }
+  ];
+
+  const productCategories = [
     { id: "necklaces", name: "Necklaces", path: "/" },
-    { id: "bracelets", name: "Bracelets", path: "/" },
-    { id: "earrings", name: "Earrings", path: "/" },
     { id: "rings", name: "Rings", path: "/" },
+    { id: "earrings", name: "Earrings", path: "/" },
+    { id: "bracelets", name: "Bracelets", path: "/" }
+  ];
+
+  const supportCategories = [
     { id: "size-guide", name: "Size Guide", path: "/size-guide" },
     { id: "care", name: "Care Instructions", path: "/care-instructions" },
     { id: "about", name: "About Us", path: "/about-us" }
@@ -54,13 +60,19 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
       if (window.location.pathname !== "/") {
         navigate("/");
       }
+      // Scroll to product section after category selection
+      setTimeout(() => {
+        const productSection = document.querySelector('[data-section="products"]');
+        if (productSection) {
+          productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
     setIsMenuOpen(false);
   };
 
   const handleLoginClick = () => {
     // For now, redirect to a login page (placeholder)
-    // In a real app, this would open a login modal or redirect to auth
     window.location.href = '/login';
   };
 
@@ -71,44 +83,80 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-responsive">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={handleLogoClick}
-              className="text-2xl lg:text-3xl font-light tracking-wide text-gray-900 hover:text-yellow-600 transition-colors duration-200"
+              className="text-xl sm:text-2xl lg:text-3xl font-light tracking-wide text-gray-900 hover:text-yellow-600 transition-colors duration-200"
             >
               LUX<span className="text-yellow-600">E</span>
             </button>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {categories.map((category) => (
+          {/* Desktop Navigation - Simplified */}
+          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            {mainCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => handleNavClick(category)}
-                className="text-gray-700 hover:text-yellow-600 transition-colors duration-200 font-light tracking-wide"
+                className="text-gray-700 hover:text-yellow-600 transition-colors duration-200 font-light tracking-wide whitespace-nowrap"
               >
                 {category.name}
               </button>
             ))}
+            
+            {/* Products Dropdown */}
+            <div className="relative group">
+              <button className="text-gray-700 hover:text-yellow-600 transition-colors duration-200 font-light tracking-wide">
+                Products
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {productCategories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleNavClick(category)}
+                    className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-yellow-600 transition-colors duration-200"
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Support Dropdown */}
+            <div className="relative group">
+              <button className="text-gray-700 hover:text-yellow-600 transition-colors duration-200 font-light tracking-wide">
+                Support
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {supportCategories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleNavClick(category)}
+                    className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-yellow-600 transition-colors duration-200"
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            </div>
           </nav>
 
           {/* Search, Wishlist, Cart, and Login */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Desktop Search */}
-            <div className="hidden lg:flex relative">
+            <div className="hidden md:flex relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 type="text"
-                placeholder="Search jewelry..."
+                placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => handleSearch(e.target.value)}
                 onFocus={() => setShowSuggestions(searchTerm.length > 0)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                className="pl-10 pr-4 py-2 w-64 border-gray-200 focus:border-yellow-600 focus:ring-yellow-600"
+                className="pl-10 pr-4 py-2 w-48 lg:w-64 border-gray-200 focus:border-yellow-600 focus:ring-yellow-600"
               />
               
               {/* Search Suggestions */}
@@ -139,9 +187,9 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
                 className="relative p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
                 aria-label="Open wishlist"
               >
-                <Heart className="h-6 w-6" />
+                <Heart className="h-5 w-5 sm:h-6 sm:w-6" />
                 {wishlistItemsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center">
                     {wishlistItemsCount}
                   </span>
                 )}
@@ -154,9 +202,9 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
               className="relative p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
               aria-label="Open shopping cart"
             >
-              <ShoppingCart className="h-6 w-6" />
+              <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
               {cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-yellow-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-yellow-600 text-white rounded-full text-xs w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center">
                   {cartItemsCount}
                 </span>
               )}
@@ -185,10 +233,10 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-100">
+          <div className="lg:hidden border-t border-gray-100 bg-white">
             <div className="py-4 space-y-4">
               {/* Mobile Search */}
-              <div className="relative">
+              <div className="relative md:hidden">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   type="text"
@@ -200,12 +248,24 @@ const Header = ({ cartItemsCount, wishlistItemsCount = 0, onCartClick, onWishlis
               </div>
 
               {/* Mobile Navigation */}
-              <nav className="space-y-2">
-                {categories.map((category) => (
+              <nav className="space-y-1">
+                <div className="font-medium text-gray-900 mb-2">Shop</div>
+                {[...mainCategories, ...productCategories].map((category) => (
                   <button
                     key={category.id}
                     onClick={() => handleNavClick(category)}
-                    className="block w-full text-left py-2 text-gray-700 hover:text-yellow-600 transition-colors duration-200"
+                    className="block w-full text-left py-2 pl-4 text-gray-700 hover:text-yellow-600 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    {category.name}
+                  </button>
+                ))}
+                
+                <div className="font-medium text-gray-900 mb-2 mt-4">Support</div>
+                {supportCategories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleNavClick(category)}
+                    className="block w-full text-left py-2 pl-4 text-gray-700 hover:text-yellow-600 hover:bg-gray-50 transition-colors duration-200"
                   >
                     {category.name}
                   </button>

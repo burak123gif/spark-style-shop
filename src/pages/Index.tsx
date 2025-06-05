@@ -8,13 +8,14 @@ import Footer from "../components/Footer";
 import ProductDetail from "../components/ProductDetail";
 import Cart from "../components/Cart";
 import Wishlist from "../components/Wishlist";
+import { usePersistentState } from "../hooks/usePersistentState";
 
 const Index = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [wishlistItems, setWishlistItems] = useState([]);
+  const [cartItems, setCartItems] = usePersistentState("luxe-cart", []);
+  const [wishlistItems, setWishlistItems] = usePersistentState("luxe-wishlist", []);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
@@ -138,13 +139,15 @@ const Index = () => {
       
       <FeaturedCollections />
       
-      <ProductGrid 
-        searchQuery={searchQuery}
-        selectedCategory={selectedCategory}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
-        onProductClick={setSelectedProduct}
-      />
+      <div data-section="products">
+        <ProductGrid 
+          searchQuery={searchQuery}
+          selectedCategory={selectedCategory}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          onProductClick={setSelectedProduct}
+        />
+      </div>
       
       <Footer />
       

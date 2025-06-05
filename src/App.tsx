@@ -20,6 +20,7 @@ import ReturnsExchanges from "./pages/ReturnsExchanges";
 import BestSellers from "./pages/BestSellers";
 import NewArrivals from "./pages/NewArrivals";
 import Collections from "./pages/Collections";
+import ShippingInfo from "./pages/ShippingInfo";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/best-sellers" element={<BestSellers />} />
           <Route path="/new-arrivals" element={<NewArrivals />} />
           <Route path="/collections" element={<Collections />} />
+          <Route path="/shipping-info" element={<ShippingInfo />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
