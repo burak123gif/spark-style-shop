@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -134,7 +133,6 @@ const Collections = () => {
         selectedCategory={selectedCategory}
         sortBy={sortBy}
         onSortChange={setSortBy}
-        onProductClick={setSelectedProduct}
       />
       
       <div className="py-16 bg-white">

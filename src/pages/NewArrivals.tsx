@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -130,7 +129,6 @@ const NewArrivals = () => {
         selectedCategory="new"
         sortBy={sortBy}
         onSortChange={setSortBy}
-        onProductClick={setSelectedProduct}
       />
       
       <Footer />
