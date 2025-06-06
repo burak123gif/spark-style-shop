@@ -4,7 +4,7 @@ import { ChevronDown, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import jewelryData from "../data/jewelry.json";
 
-const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onProductClick }) => {
+const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange }) => {
   const [showFilters, setShowFilters] = useState(false);
   const navigate = useNavigate();
 

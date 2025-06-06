@@ -74,12 +74,23 @@ const ProductPage = () => {
     window.history.back();
   };
 
+  // Dummy handlers for search and category since they're not used on product pages
+  const handleSearchChange = () => {
+    // Not used on product page, but required by Header component
+  };
+
+  const handleCategoryChange = () => {
+    // Not used on product page, but required by Header component
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header 
         cartItemsCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
         onCartClick={() => setIsCartOpen(true)}
         onWishlistClick={() => setIsWishlistOpen(true)}
+        onSearchChange={handleSearchChange}
+        onCategoryChange={handleCategoryChange}
         wishlistItemsCount={wishlistItems.length}
       />
       
