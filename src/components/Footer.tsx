@@ -1,12 +1,15 @@
-
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
 
-  const handleLinkClick = (path) => {
+  const handleLinkClick = (path: string) => {
     navigate(path);
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   };
 
   const handleEmailClick = () => {
@@ -19,11 +22,18 @@ const Footer = () => {
 
   const handleReturnsExchangesClick = () => {
     navigate("/returns-exchanges");
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   };
 
   const handleShippingInfoClick = () => {
-    // Create a dedicated shipping info page navigation
     navigate("/shipping-info");
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   };
 
   return (
