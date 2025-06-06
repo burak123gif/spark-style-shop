@@ -93,12 +93,16 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
 
   const handleExploreClick = (product, e) => {
     e.stopPropagation();
-    console.log('Explore button clicked for product:', product.name);
+    console.log('=== EXPLORE CLICK DEBUG ===');
+    console.log('Product clicked:', product.name, 'ID:', product.id);
+    console.log('Full product object:', product);
+    console.log('Search query active:', searchQuery);
+    console.log('==========================');
     
     // Navigate to product detail view first
     if (onProductClick) {
       onProductClick(product);
-      // FIXED: Scroll to top AFTER navigation with a small delay to ensure the page has changed
+      // Scroll to top AFTER navigation with a small delay to ensure the page has changed
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);

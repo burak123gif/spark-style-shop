@@ -71,6 +71,14 @@ const Index = () => {
     window.location.href = '/checkout';
   };
 
+  const handleProductClick = (product) => {
+    console.log('=== INDEX PRODUCT CLICK DEBUG ===');
+    console.log('Received product in Index:', product.name, 'ID:', product.id);
+    console.log('Full product object received:', product);
+    console.log('================================');
+    setSelectedProduct(product);
+  };
+
   if (selectedProduct) {
     return (
       <div className="min-h-screen bg-white">
@@ -136,7 +144,7 @@ const Index = () => {
           selectedCategory={selectedCategory}
           sortBy={sortBy}
           onSortChange={setSortBy}
-          onProductClick={setSelectedProduct}
+          onProductClick={handleProductClick}
         />
       </div>
       
@@ -165,7 +173,7 @@ const Index = () => {
         <div className="fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50">
           Added to wishlist! ❤️
         </div>
-      )}
+        )}
     </div>
   );
 };
