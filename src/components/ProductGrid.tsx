@@ -1,11 +1,12 @@
-
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronDown, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import jewelryData from "../data/jewelry.json";
 
 const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onProductClick }) => {
   const [showFilters, setShowFilters] = useState(false);
+  const navigate = useNavigate();
 
   // Use imported jewelry data
   const products = jewelryData.products;
@@ -97,20 +98,11 @@ const ProductGrid = ({ searchQuery, selectedCategory, sortBy, onSortChange, onPr
     console.log('Product clicked:', product.name, 'ID:', product.id);
     console.log('Full product object:', product);
     console.log('Search query active:', searchQuery);
+    console.log('Navigating to:', `/product/${product.id}`);
     console.log('==========================');
     
-    // Navigate to product detail view first
-    if (onProductClick) {
-      onProductClick(product);
-      // Scroll to top AFTER navigation with a small delay to ensure the page has changed
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
-    } else {
-      // Fallback: redirect to jewelry page if no handler
-      console.warn('No product click handler provided, redirecting to jewelry page');
-      window.location.href = '/jewelry';
-    }
+    // Navigate to dedicated product page
+    navigate(`/product/${product.id}`);
   };
 
   const getCategoryDisplayName = (category) => {

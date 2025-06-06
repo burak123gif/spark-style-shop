@@ -1,30 +1,38 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, Navigate } from "react-router-dom";
 import Header from "../components/Header";
-import Hero from "../components/Hero";
-import ProductGrid from "../components/ProductGrid";
-import FeaturedCollections from "../components/FeaturedCollections";
+import ProductDetail from "../components/ProductDetail";
 import Footer from "../components/Footer";
 import Cart from "../components/Cart";
 import Wishlist from "../components/Wishlist";
 import { usePersistentState } from "../hooks/usePersistentState";
 import { usePersistentWishlist } from "../hooks/usePersistentWishlist";
+import jewelryData from "../data/jewelry.json";
 
-const Index = () => {
+const ProductPage = () => {
+  const { id } = useParams();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [cartItems, setCartItems] = usePersistentState("luxe-cart", []);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortBy, setSortBy] = useState("newest");
-
-  // Use the new persistent wishlist hook
+  
   const { 
     wishlistItems, 
     addToWishlist, 
     removeFromWishlist, 
     showWishlistPopup 
   } = usePersistentWishlist();
+
+  // Find the product by ID
+  const product = jewelryData.products.find(p => p.id === parseInt(id));
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
+
+  if (!product) {
+    return <Navigate to="/404" replace />;
+  }
 
   const addToCart = (product) => {
     setCartItems(prev => {
@@ -62,29 +70,25 @@ const Index = () => {
     window.location.href = '/checkout';
   };
 
+  const handleBack = () => {
+    window.history.back();
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header 
         cartItemsCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
         onCartClick={() => setIsCartOpen(true)}
         onWishlistClick={() => setIsWishlistOpen(true)}
-        onSearchChange={setSearchQuery}
-        onCategoryChange={setSelectedCategory}
         wishlistItemsCount={wishlistItems.length}
       />
       
-      <Hero />
-      
-      <FeaturedCollections />
-      
-      <div data-section="products">
-        <ProductGrid 
-          searchQuery={searchQuery}
-          selectedCategory={selectedCategory}
-          sortBy={sortBy}
-          onSortChange={setSortBy}
-        />
-      </div>
+      <ProductDetail 
+        product={product}
+        onBack={handleBack}
+        onAddToCart={addToCart}
+        onAddToWishlist={addToWishlist}
+      />
       
       <Footer />
       
@@ -116,4 +120,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default ProductPage;
